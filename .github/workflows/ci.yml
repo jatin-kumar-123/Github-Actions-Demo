@@ -29,12 +29,9 @@ jobs:
       run: ./gradlew build
       
     - uses: mr-smithers-excellent/docker-build-push@v5
-      name: Build & push Docker image
       with:
         image: kumarjatin/my-repo
-        tags: v1, myFirstDockerImage
-        registry: registry-url.io
-        dockerfile: Dockerfile.ci
+        registry: docker.io
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
  
