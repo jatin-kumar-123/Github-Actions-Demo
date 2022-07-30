@@ -32,22 +32,12 @@ jobs:
     - name: Build with Gradle
       run: ./gradlew build
       
-    - name: Set up QEMU
-      uses: docker/setup-qemu-action@v2
-        
-    - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v2
-      
-    - name: Login to DockerHub
-      uses: docker/login-action@v2
+    - uses: mr-smithers-excellent/docker-build-push@v5
+    - name: Build & push Docker image
       with:
-        username: ${{ secrets.DOCKERHUB_USERNAME }}
-        password: ${{ secrets.DOCKERHUB_TOKEN }}
-      
-    - name: Build and push
-      uses: docker/build-push-action@v3
-      with:
-        push: true
-        tags: kumarjatin/my-repo:myFirstDockerImage
-
-      
+       image: kumarjatin/my-repo
+       tags: v1, myFirstDockerImage
+       registry: docker.io
+       username: ${{ secrets.DOCKER_USERNAME }}
+       password: ${{ secrets.DOCKER_PASSWORD }}
+      password: ${{ secrets.DOCKER_PASSWORD }}
